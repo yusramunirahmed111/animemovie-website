@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modern Anime Streaming</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    /* Reset and Basics */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #0a0a0a;
+      color: white;
+    }
+
+    /* Navbar */
+    .navbar {
+      padding: 1rem 5%;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      color: #e50914;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: #e50914;
+    }
+
+    .search-box {
+      background: #2d2d2d;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      color: white;
+      margin-left: 0.5rem;
+      outline: none;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('./images/VnjerQ.jpg') center/cover;
+      display: flex;
+      align-items: center;
+      padding: 0 5%;
+      margin-top: 20px;
+    }
+
+    .hero-content {
+      max-width: 600px;
+    }
+
+    .hero-content h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .cta-btn {
+      background: #e50914;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: #b2070f;
+    }
+    
+
+    /* Sections */
+    section {
+      padding: 5rem 5%;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .movie-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: 0.3s;
+    }
+
+    .movie-card img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+
+    .movie-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .movie-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
+      padding: 1rem;
+      transform: translateY(100%);
+      transition: 0.3s;
+    }
+
+    .movie-card:hover .movie-info {
+      transform: translateY(0);
+    }
+
+    /* Section Specific Styles */
+    #movies {
+      background-color: #111;
+    }
+
+    #series {
+      background-color: #1a1a1a;
+    }
+
+    #movies .section-title {
+      color: #f5c518;
+    }
+
+    #series .section-title {
+      color: #00bfff;
+    }
+
+    /* Footer */
+    footer {
+      background: #111;
+      padding: 3rem 5%;
+      text-align: center;
+    }
+
+    .social-icons {
+      margin-bottom: 1rem;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      margin: 0 0.5rem;
+      transition: 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #e50914;
+    }
+/* Hide hamburger icon on larger screens */
+@media (min-width: 321px) {
+  .menu-toggle {
+    display: none; /* Hide the hamburger icon */
+  }
+}
+/* Responsive styles for 320px screens */
+@media (max-width: 320px) {
+  .navbar {
+    flex-direction: row; /* Align items horizontally */
+    justify-content: space-between; /* Space between logo and hamburger */
+    padding: 1rem 5%; /* Optional: Adjust padding for better spacing */
+  }
+
+  .nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Align logo and hamburger icon vertically */
+    width: 100%; /* Ensure the header occupies full width */
+  }
+
+  .logo {
+    font-size: 1.5rem; /* Adjust logo size for smaller screens */
+  }
+
+  .menu-toggle {
+    display: block; /* Show hamburger icon */
+    font-size: 2rem; /* Adjust size of the hamburger icon */
+    color: white;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: none; /* Hide the navigation links initially */
+  }
+
+  .nav-links.active {
+    display: flex; /* Show nav links when active */
+    flex-direction: column;
+    width: 100%;
+    background-color: #111;
+    padding: 1rem;
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .nav-links a {
+    padding: 0.5rem 0;
+    color: white;
+    text-decoration: none;
+  }
+
+  .nav-links a:hover {
+    color: #e50914;
+  }
+}
+</style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-header">
+        <div class="logo">AnimeMovie</div>
+        <div class="menu-toggle" onclick="toggleMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <!-- Collapsible Nav Content (includes search bar) -->
+    <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#trending">Trending</a>
+        <a href="#movies">Movies</a>
+        <a href="#series">Series</a>
+
+        <!-- Search box inside the nav-links -->
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search anime..." />
+        </div>
+    </div>
+</nav>
+
+<section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Unlimited Anime Entertainment</h1>
+      <p>Watch your favorite anime movies and series anytime, anywhere.</p>
+      <button class="cta-btn">Explore Now</button>
+    </div>
+  </section>
+
+  <!-- Trending Section -->
+  <section class="trending" id="trending">
+    <h2 class="section-title">Trending Now</h2>
+    <div class="movies-grid">
+      <div class="movie-card">
+        <img src="./images/MV5BNTEyNmEwOWUtYzkyOC00ZTQ4LTllZmUtMjk0Y2YwOGUzYjRiXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="spiritedaway">
+        <div class="movie-info">
+          <h3>Spirited Away</h3>
+          <p>⭐ 9.0/10 | Action</p>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="./images/images.jpg" alt="My Hero Academia Poster">
+        <div class="movie-info">
+          <h3>My Hero Academia</h3>
+          <p>⭐ 8.5/10 | Superhero</p>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="./images/10122bca17c92b1356c8fd2e85d693c5.jpg" alt="Naruto Poster">
+        <div class="movie-info">
+          <h3>Naruto: Shippuden</h3>
+          <p>⭐ 8.7/10 | Adventure</p>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="./images/KHCLYRV6IJDZFFVZRQ7HOBBGQA.png" alt="One Piece Poster">
+        <div class="movie-info">
+          <h3>One Piece Film: Red</h3>
+          <p>⭐ 8.9/10 | Adventure</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Movies Section -->
+  <section id="movies">
+    <h2 class="section-title">Popular Movies</h2>
+    <div class="movies-grid">
+      <div class="movie-card">
+        <img src="./images/jujutu.webp" alt="Jujutsu Kaisen Poster">
+        <div class="movie-info">
+          <h3>Jujutsu Kaisen 0</h3>
+          <p>⭐ 8.8/10 | Dark Fantasy</p>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="./images/bleach poster.jpg" alt="Bleach Poster">
+        <div class="movie-info">
+          <h3>Bleach: TYBW</h3>
+          <p>⭐ 8.4/10 | Supernatural</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Series Section -->
+  <section id="series">
+    <h2 class="section-title">Top Anime Series</h2>
+    <div class="movies-grid">
+      <div class="movie-card">
+        <img src="./images/attack on titan.jpg" alt="Attack on Titan Poster">
+        <div class="movie-info">
+          <h3>Attack on Titan</h3>
+          <p>⭐ 9.1/10 | Action, Drama</p>
+        </div>
+      </div>
+
+      <div class="movie-card">
+        <img src="./images/death note.jpg" alt="Death Note Poster">
+        <div class="movie-info">
+          <h3>Death Note</h3>
+          <p>⭐ 9.0/10 | Thriller</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <p>&copy; 2025 AnimeMovie. All rights reserved.</p>
+  </footer>
+  <script>
+    function toggleMenu() {
+      // Toggle the 'active' class to show/hide the menu and search box
+      document.querySelector('.nav-links').classList.toggle('active');
+      document.querySelector('.search-box').classList.toggle('active');
+  
+}
+
+  </script>
+</body>
+</html>
+
+  
